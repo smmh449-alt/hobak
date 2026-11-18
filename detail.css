@@ -1,0 +1,864 @@
+/* 호박마켓 상품 상세 페이지 스타일 (detail.css) */
+
+/* 전체 레이아웃 */
+.detail-page-wrapper {
+  max-width: 768px;
+  margin: 0 auto;
+  padding: 0 0 100px 0; /* 하단 고정 바 공간 확보 */
+  min-height: calc(100vh - var(--header-height));
+  background-color: var(--card-bg);
+}
+
+@media (min-width: 769px) {
+  .detail-page-wrapper {
+    margin: 24px auto 100px auto;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+  }
+}
+
+/* 상단 서브 헤더 / 모바일 전용 네비게이션 바 */
+.top-subnav-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  background-color: #ffffff;
+  border-bottom: 1px solid var(--border-color);
+  position: sticky;
+  top: var(--header-height);
+  z-index: 50;
+}
+
+@media (max-width: 768px) {
+  .top-subnav-bar {
+    top: 0;
+  }
+}
+
+.subnav-left, .subnav-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.subnav-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  color: var(--text-main);
+  background: rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.subnav-btn:hover {
+  background: rgba(0, 0, 0, 0.08);
+  color: var(--primary);
+  transform: translateY(-1px);
+}
+
+.subnav-btn svg {
+  width: 20px;
+  height: 20px;
+}
+
+.btn-app-view {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+  background-color: var(--primary-light);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  transition: all 0.2s ease;
+  border: 1px solid var(--primary-subtle);
+}
+
+.btn-app-view:hover {
+  background-color: var(--primary);
+  color: #fff;
+}
+
+/* 대표 이미지 영역 */
+.product-image-container {
+  position: relative;
+  width: 100%;
+  background-color: #000;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 520px;
+  aspect-ratio: 4 / 3;
+}
+
+.product-main-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.product-image-container:hover .product-main-image {
+  transform: scale(1.02);
+}
+
+/* 이미지 상태 뱃지 오버레이 */
+.status-overlay-badge {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  backdrop-filter: blur(6px);
+  z-index: 5;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.status-overlay-badge.reserved {
+  background-color: rgba(32, 201, 151, 0.9);
+}
+
+.status-overlay-badge.completed {
+  background-color: rgba(73, 80, 87, 0.9);
+}
+
+.status-overlay-badge.selling {
+  display: none;
+}
+
+.image-zoom-btn {
+  position: absolute;
+  bottom: 16px;
+  right: 16px;
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(4px);
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.image-zoom-btn:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* 판매자 프로필 섹션 (이미지2 디자인 정밀 반영) */
+.seller-profile-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px;
+  border-bottom: 1px solid var(--border-color);
+  background-color: #ffffff;
+}
+
+.seller-left-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.seller-avatar-wrapper {
+  position: relative;
+  width: 52px;
+  height: 52px;
+}
+
+.seller-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid var(--border-color);
+}
+
+.seller-text-meta {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.seller-nickname {
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.seller-location {
+  font-size: 13px;
+  color: var(--text-sub);
+}
+
+/* 매너온도 박스 */
+.manner-temp-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.manner-temp-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.manner-temp-num {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--sb-green); /* 스타벅스 그린 */
+  letter-spacing: -0.2px;
+}
+
+.manner-face-icon {
+  font-size: 20px;
+  line-height: 1;
+}
+
+.manner-gauge-track {
+  width: 100px;
+  height: 5px;
+  background-color: #E2E8E5;
+  border-radius: 10px;
+  overflow: hidden;
+  position: relative;
+}
+
+.manner-gauge-bar {
+  height: 100%;
+  background: linear-gradient(90deg, #2D5D46, var(--sb-green));
+  border-radius: 10px;
+  transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.manner-label {
+  font-size: 11px;
+  color: var(--text-sub);
+  text-decoration: underline dotted;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.manner-label:hover {
+  color: var(--text-main);
+}
+
+/* 상품 상세 본문 섹션 */
+.product-content-section {
+  padding: 24px 20px;
+}
+
+.product-title-row {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.product-title {
+  font-size: 22px;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+.product-meta-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-bottom: 16px;
+}
+
+.product-price-row {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid var(--border-light);
+}
+
+.product-price {
+  font-size: 26px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.product-price.free {
+  color: var(--primary);
+}
+
+.product-negotiable-badge {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-sub);
+  background-color: var(--bg-color);
+  padding: 3px 8px;
+  border-radius: var(--radius-sm);
+}
+
+.product-description {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #343a40;
+  white-space: pre-wrap;
+  word-break: break-word;
+  margin-bottom: 28px;
+}
+
+/* 통계 및 게시글 액션 */
+.product-stats-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  color: var(--text-muted);
+  padding-top: 16px;
+  border-top: 1px solid var(--border-light);
+}
+
+.product-stats-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.stat-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.btn-report-post {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--text-muted);
+  text-decoration: underline;
+  transition: color 0.2s;
+}
+
+.btn-report-post:hover {
+  color: #e03131;
+}
+
+/* 안심 직거래 배너 - 스타벅스 그린/레드 악센트 */
+.safety-banner {
+  margin: 20px;
+  padding: 16px 20px;
+  background-color: var(--sb-green-light);
+  border: 1px solid var(--sb-green-subtle);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.safety-icon {
+  font-size: 24px;
+}
+
+.safety-text {
+  font-size: 13px;
+  line-height: 1.5;
+  color: #495057;
+}
+
+.safety-text strong {
+  color: var(--primary);
+  font-weight: 700;
+}
+
+/* 연관 상품 추천 섹션 */
+.related-products-section {
+  padding: 28px 20px;
+  border-top: 8px solid var(--border-light);
+  background-color: #ffffff;
+}
+
+.related-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18px;
+}
+
+.related-section-title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text-main);
+}
+
+.related-more-link {
+  font-size: 13px;
+  color: var(--text-sub);
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  transition: color 0.2s;
+}
+
+.related-more-link:hover {
+  color: var(--primary);
+}
+
+.related-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+@media (min-width: 600px) {
+  .related-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.related-card {
+  display: flex;
+  flex-direction: column;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  background: #ffffff;
+  border: 1px solid var(--border-color);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.related-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--primary-subtle);
+}
+
+.related-card-thumb-wrap {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background-color: var(--bg-color);
+  overflow: hidden;
+}
+
+.related-card-thumb {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.3s;
+}
+
+.related-card:hover .related-card-thumb {
+  transform: scale(1.05);
+}
+
+.related-card-info {
+  padding: 10px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.related-card-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.related-card-price {
+  font-size: 14px;
+  font-weight: 800;
+  color: var(--text-main);
+}
+
+.related-card-meta {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+/* 하단 고정 바 (Bottom Fixed Bar) */
+.bottom-fixed-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 76px;
+  background-color: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(12px);
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.06);
+  z-index: 99;
+  display: flex;
+  align-items: center;
+}
+
+.bottom-bar-container {
+  max-width: 768px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.bottom-bar-left {
+  display: flex;
+  align-items: center;
+}
+
+.btn-like-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 8px;
+  border-radius: 50%;
+  transition: transform 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.btn-like-toggle svg {
+  width: 26px;
+  height: 26px;
+  stroke: #495057;
+  stroke-width: 2;
+  fill: none;
+  transition: all 0.2s ease;
+}
+
+.btn-like-toggle.active svg {
+  stroke: var(--sb-red);
+  fill: var(--sb-red);
+  animation: heartPop 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes heartPop {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.35); }
+  100% { transform: scale(1); }
+}
+
+.bottom-bar-divider {
+  width: 1px;
+  height: 38px;
+  background-color: var(--border-color);
+  margin: 0 16px;
+}
+
+.bottom-price-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bottom-price-num {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.2px;
+}
+
+.bottom-price-sub {
+  font-size: 12px;
+  color: var(--text-sub);
+  font-weight: 500;
+}
+
+.bottom-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.btn-chat-action {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--primary);
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: var(--radius-sm);
+  font-size: 15px;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(255, 111, 15, 0.28);
+  transition: all 0.2s ease;
+}
+
+.btn-chat-action:hover {
+  background-color: var(--primary-hover);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(255, 111, 15, 0.38);
+}
+
+.btn-chat-action:active {
+  transform: translateY(0);
+}
+
+/* 모달 레이아웃 (채팅 모달 & 신고 모달 & 이미지 확대 모달) */
+.hobak-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.hobak-modal-backdrop.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.hobak-modal-window {
+  background-color: #ffffff;
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 480px;
+  max-height: 90vh;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(20px) scale(0.97);
+  transition: transform 0.25s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.hobak-modal-backdrop.active .hobak-modal-window {
+  transform: translateY(0) scale(1);
+}
+
+.modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--border-color);
+}
+
+.modal-title {
+  font-size: 17px;
+  font-weight: 700;
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.modal-close-btn {
+  font-size: 20px;
+  color: var(--text-sub);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background 0.2s;
+}
+
+.modal-close-btn:hover {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+}
+
+/* 채팅 모달 전용 */
+.chat-modal-item-preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.chat-item-thumb {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.chat-item-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.chat-item-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.chat-item-price {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--primary);
+}
+
+.chat-history-area {
+  flex: 1;
+  padding: 20px;
+  overflow-y: auto;
+  max-height: 280px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background-color: #fafbfc;
+}
+
+.chat-bubble {
+  max-width: 80%;
+  padding: 10px 14px;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  line-height: 1.45;
+  word-break: break-word;
+}
+
+.chat-bubble.system {
+  align-self: center;
+  background-color: #E9ECEF;
+  color: var(--text-sub);
+  font-size: 12px;
+  border-radius: var(--radius-full);
+  padding: 4px 14px;
+}
+
+.chat-bubble.seller {
+  align-self: flex-start;
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  border-bottom-left-radius: 2px;
+}
+
+.chat-bubble.user {
+  align-self: flex-end;
+  background-color: var(--primary);
+  color: #ffffff;
+  border-bottom-right-radius: 2px;
+}
+
+.chat-quick-replies {
+  display: flex;
+  gap: 8px;
+  padding: 8px 20px;
+  background-color: #ffffff;
+  border-top: 1px solid var(--border-light);
+  overflow-x: auto;
+}
+
+.btn-quick-reply {
+  font-size: 12px;
+  padding: 5px 12px;
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-full);
+  color: var(--text-main);
+  white-space: nowrap;
+  transition: all 0.2s;
+}
+
+.btn-quick-reply:hover {
+  background-color: var(--primary-light);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.chat-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  background-color: #ffffff;
+  border-top: 1px solid var(--border-color);
+}
+
+.chat-input-bar input {
+  flex: 1;
+  padding: 10px 14px;
+  font-size: 14px;
+}
+
+.btn-chat-send {
+  background-color: var(--primary);
+  color: #fff;
+  padding: 10px 18px;
+  border-radius: var(--radius-sm);
+  font-weight: 700;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.btn-chat-send:hover {
+  background-color: var(--primary-hover);
+}
+
+/* 토스트 알림 (Toast) */
+.hobak-toast {
+  position: fixed;
+  bottom: 90px;
+  left: 50%;
+  transform: translateX(-50%) translateY(20px);
+  background-color: rgba(33, 37, 41, 0.92);
+  color: #ffffff;
+  padding: 10px 20px;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 600;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.2);
+  z-index: 1100;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s ease;
+  white-space: nowrap;
+}
+
+.hobak-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 이미지 줌 모달 */
+.zoom-modal-img {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+  object-fit: contain;
+  background: #000;
+}

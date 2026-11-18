@@ -1,0 +1,295 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>호박마켓 - 당신 근처의 따뜻한 중고거래</title>
+  
+  <!-- Pretendard 폰트 & FontAwesome 아이콘 -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- 공통 스타일 및 목록 페이지 스타일 -->
+  <link rel="stylesheet" href="shared/common.css">
+  <link rel="stylesheet" href="list.css">
+</head>
+<body>
+
+  <!-- 상단 헤더 -->
+  <header class="hobak-header">
+    <div class="header-container">
+      <div class="header-left">
+        <a href="list.html" class="logo-area" title="호박마켓 홈">
+          <div class="logo-badge">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="#006241"/>
+              <circle cx="50" cy="50" r="43" stroke="#ffffff" stroke-width="2"/>
+              <circle cx="50" cy="50" r="39" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+              <path d="M50 14L52 18H56L53 21L54 25L50 22.5L46 25L47 21L44 18H48L50 14Z" fill="#ffffff"/>
+              <path d="M36 18L37.5 21.5H41L38.5 24L39.5 27.5L36 25.5L32.5 27.5L33.5 24L31 21.5H34.5L36 18Z" fill="#ffffff"/>
+              <path d="M64 18L65.5 21.5H69L66.5 24L67.5 27.5L64 25.5L60.5 27.5L61.5 24L59 21.5H62.5L64 18Z" fill="#ffffff"/>
+              <path d="M49 26C49 23 53 22 55 20C54 24 51 26 49 26Z" fill="#ffffff"/>
+              <path d="M50 27C41 27 33 34 33 46C33 58 41 66 50 67C59 66 67 58 67 46C67 34 59 27 50 27Z" fill="#ffffff"/>
+              <path d="M50 28C45 36 45 56 50 65C47 56 47 36 50 28Z" fill="#006241"/>
+              <path d="M43 31C37 39 37 54 43 62C39 54 39 39 43 31Z" fill="#006241"/>
+              <path d="M57 31C63 39 63 54 57 62C61 54 61 39 57 31Z" fill="#006241"/>
+              <path d="M26 71C35 67 44 70 50 72C56 70 65 67 74 71C69 76 61 76 50 81C39 76 31 76 26 71Z" fill="#C8102E" stroke="#ffffff" stroke-width="1.2"/>
+              <circle cx="50" cy="72" r="3" fill="#ffffff"/>
+              <path d="M47 74L43 85L48 83L50 85L52 83L57 85L53 74Z" fill="#C8102E"/>
+            </svg>
+          </div>
+          <div class="logo-title-group">
+            <span class="logo-text-ko">호박마켓 <span class="logo-ribbon-tag">HOLIDAY</span></span>
+            <span class="logo-text-en">STARBUCKS EDITION</span>
+          </div>
+        </a>
+        <nav class="header-nav">
+          <a href="list.html" class="nav-link active">중고거래</a>
+          <a href="#" class="nav-link" onclick="showToast('준비 중인 서비스입니다.'); return false;">동네생활</a>
+          <a href="#" class="nav-link" onclick="showToast('준비 중인 서비스입니다.'); return false;">호박알바</a>
+          <a href="#" class="nav-link" onclick="showToast('준비 중인 서비스입니다.'); return false;">부동산</a>
+        </nav>
+      </div>
+
+      <!-- 상단 중앙 검색창 -->
+      <div class="header-search-wrap">
+        <form id="headerSearchForm" class="header-search-box" onsubmit="return false;">
+          <i class="fa-solid fa-magnifying-glass search-icon"></i>
+          <input type="text" id="searchInput" placeholder="물품이나 동네를 검색해보세요" autocomplete="off">
+          <button type="button" id="clearSearchBtn" class="btn-clear-search" style="display:none;" title="검색어 지우기">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+          <button type="submit" id="searchSubmitBtn" class="btn-search-action">검색</button>
+        </form>
+      </div>
+
+      <!-- 상단 우측 글쓰기 & 사용자 버튼 -->
+      <div class="header-right">
+        <a href="write.html" class="btn-write-header">
+          <i class="fa-solid fa-pen"></i>
+          <span>글쓰기</span>
+        </a>
+        <button type="button" class="btn-header-icon" title="채팅" onclick="showToast('채팅 목록이 비어있습니다.');">
+          <i class="fa-regular fa-comment-dots"></i>
+        </button>
+        <button type="button" class="btn-header-icon" title="알림" onclick="showToast('새로운 알림이 없습니다.');">
+          <i class="fa-regular fa-bell"></i>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- 메인 영역 -->
+  <main class="list-main-wrap">
+    
+    <!-- 지역 및 인기 검색어 서브헤더 섹션 -->
+    <section class="sub-header-section">
+      <div class="sub-header-container">
+        
+        <!-- 내 동네 바 -->
+        <div class="location-bar">
+          <div class="current-location">
+            <span class="location-icon">📍</span>
+            <span class="location-text" id="currentLocationText">충남 아산시 온양읍 화정동 근처</span>
+          </div>
+          <button type="button" class="btn-change-location" id="openLocationModalBtn">
+            <i class="fa-solid fa-sliders"></i> 내 동네 설정
+          </button>
+        </div>
+
+        <!-- 인기 검색어 칩 목록 -->
+        <div class="hot-keywords-bar">
+          <div class="hot-label">
+            <i class="fa-solid fa-fire hot-icon"></i>
+            <span>인기 검색어</span>
+          </div>
+          <div class="chips-scroll-container">
+            <div class="chip" data-keyword="야상자켓">#야상자켓</div>
+            <div class="chip" data-keyword="니트">#니트</div>
+            <div class="chip" data-keyword="헤드폰">#헤드폰</div>
+            <div class="chip" data-keyword="캠핑">#캠핑</div>
+            <div class="chip" data-keyword="에어포스">#에어포스</div>
+            <div class="chip" data-keyword="아이패드">#아이패드</div>
+            <div class="chip" data-keyword="쿠션">#쿠션</div>
+            <div class="chip" data-keyword="의자">#원목의자</div>
+            <div class="chip" data-keyword="나눔">#무료나눔</div>
+          </div>
+        </div>
+
+        <!-- 카테고리 탭 바 -->
+        <nav class="category-nav-bar" id="categoryNav">
+          <button type="button" class="cat-tab active" data-category="전체">전체</button>
+          <button type="button" class="cat-tab" data-category="여성의류">여성의류</button>
+          <button type="button" class="cat-tab" data-category="디지털기기">디지털기기</button>
+          <button type="button" class="cat-tab" data-category="가구/인테리어">가구/인테리어</button>
+          <button type="button" class="cat-tab" data-category="생활가전">생활가전</button>
+          <button type="button" class="cat-tab" data-category="스포츠/레저">스포츠/레저</button>
+          <button type="button" class="cat-tab" data-category="남성패션/잡화">남성패션</button>
+          <button type="button" class="cat-tab" data-category="여성잡화">여성잡화</button>
+        </nav>
+      </div>
+    </section>
+
+    <!-- 상품 목록 메인 컨테이너 -->
+    <section class="products-section">
+      <div class="products-container">
+        
+        <!-- 컨트롤 툴바: 상품 개수, 거래 가능만 보기, 정렬 드롭다운 -->
+        <div class="list-toolbar">
+          <div class="toolbar-left">
+            <h2 class="list-title" id="listHeading">중고거래 매물</h2>
+            <span class="count-badge">총 <strong id="productCount">0</strong>개</span>
+            <span id="activeFilterBadge" class="active-filter-badge" style="display:none;"></span>
+          </div>
+
+          <div class="toolbar-right">
+            <!-- 거래 가능만 보기 토글 체크박스 -->
+            <label class="custom-checkbox-wrap" title="판매완료 제외하고 보기">
+              <input type="checkbox" id="onlyAvailableCheck">
+              <span class="checkbox-box"></span>
+              <span class="checkbox-label">거래 가능만 보기</span>
+            </label>
+
+            <!-- 정렬 드롭다운 -->
+            <div class="sort-select-wrap">
+              <select id="sortSelect" class="sort-select" aria-label="상품 정렬 순서">
+                <option value="latest">최신순</option>
+                <option value="popular">인기순 (관심 많은순)</option>
+                <option value="priceAsc">낮은 가격순</option>
+                <option value="priceDesc">높은 가격순</option>
+              </select>
+              <i class="fa-solid fa-chevron-down select-arrow"></i>
+            </div>
+          </div>
+        </div>
+
+        <!-- 상품 그리드 -->
+        <div class="product-grid" id="productGrid" aria-live="polite">
+          <!-- JS로 동적 생성되는 상품 카드들 -->
+        </div>
+
+        <!-- 검색 결과 없음 Empty State -->
+        <div class="empty-state" id="emptyState" style="display: none;">
+          <div class="empty-icon">🎃</div>
+          <h3 class="empty-title">검색 결과가 없습니다</h3>
+          <p class="empty-desc" id="emptyDesc">입력하신 검색어에 맞는 상품을 찾지 못했어요.<br>단어의 철자가 맞는지 확인해보시거나 다른 검색어로 찾아보세요.</p>
+          <button type="button" class="btn-reset-filters" id="resetFiltersBtn">
+            <i class="fa-solid fa-rotate-left"></i> 전체 상품 보기
+          </button>
+        </div>
+
+        <!-- 페이지네이션 UI -->
+        <div class="pagination-wrap" id="paginationWrap">
+          <!-- JS로 동적 렌더링 -->
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- 모바일 전용 플로팅 글쓰기 버튼 -->
+  <a href="write.html" class="fab-write" title="새 상품 등록하기">
+    <i class="fa-solid fa-plus"></i>
+    <span>글쓰기</span>
+  </a>
+
+  <!-- 동네 설정 모달 -->
+  <div class="modal-overlay" id="locationModal">
+    <div class="modal-content location-modal">
+      <div class="modal-header">
+        <h3 class="modal-title">내 동네 설정</h3>
+        <button type="button" class="btn-modal-close" id="closeLocationModalBtn" aria-label="닫기">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-desc">검색하거나 둘러보고 싶은 동네를 선택해 주세요.</p>
+        <div class="location-preset-list">
+          <button type="button" class="loc-item active" data-loc="충남 아산시 온양읍 화정동">
+            <span class="loc-pin">📍</span>
+            <div class="loc-info">
+              <strong>충남 아산시 온양읍 화정동</strong>
+              <small>현재 우리 동네 (기준 위치)</small>
+            </div>
+            <i class="fa-solid fa-check check-icon"></i>
+          </button>
+          <button type="button" class="loc-item" data-loc="서울 강남구 역삼동">
+            <span class="loc-pin">📍</span>
+            <div class="loc-info">
+              <strong>서울 강남구 역삼동</strong>
+              <small>역삼역, 강남역 부근</small>
+            </div>
+            <i class="fa-solid fa-check check-icon"></i>
+          </button>
+          <button type="button" class="loc-item" data-loc="서울 서초구 서초동">
+            <span class="loc-pin">📍</span>
+            <div class="loc-info">
+              <strong>서울 서초구 서초동</strong>
+              <small>서초역, 교대역 부근</small>
+            </div>
+            <i class="fa-solid fa-check check-icon"></i>
+          </button>
+          <button type="button" class="loc-item" data-loc="서울 마포구 연남동">
+            <span class="loc-pin">📍</span>
+            <div class="loc-info">
+              <strong>서울 마포구 연남동 / 합정동</strong>
+              <small>홍대입구역, 망원동 인근</small>
+            </div>
+            <i class="fa-solid fa-check check-icon"></i>
+          </button>
+          <button type="button" class="loc-item" data-loc="전체">
+            <span class="loc-pin">🌏</span>
+            <div class="loc-info">
+              <strong>전국 모든 지역 둘러보기</strong>
+              <small>거리 제한 없이 모든 매물 표시</small>
+            </div>
+            <i class="fa-solid fa-check check-icon"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 토스트 알림 메시지 컴포넌트 -->
+  <div id="toastContainer" class="toast-container" aria-live="assertive"></div>
+
+  <!-- 푸터 -->
+  <footer class="hobak-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-logo">
+          <div class="logo-badge" style="width: 32px; height: 32px;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="#006241"/>
+              <circle cx="50" cy="50" r="43" stroke="#ffffff" stroke-width="2"/>
+              <path d="M50 14L52 18H56L53 21L54 25L50 22.5L46 25L47 21L44 18H48L50 14Z" fill="#ffffff"/>
+              <path d="M50 27C41 27 33 34 33 46C33 58 41 66 50 67C59 66 67 58 67 46C67 34 59 27 50 27Z" fill="#ffffff"/>
+              <path d="M26 71C35 67 44 70 50 72C56 70 65 67 74 71C69 76 61 76 50 81C39 76 31 76 26 71Z" fill="#C8102E"/>
+            </svg>
+          </div>
+          <span class="footer-logo-title">호박마켓 <span style="font-size: 11px; color: var(--sb-red); font-weight: 700;">★ HOLIDAY</span></span>
+        </div>
+        <div class="footer-links">
+          <a href="#">이용약관</a>
+          <a href="#">개인정보처리방침</a>
+          <a href="#">위치기반서비스 이용약관</a>
+          <a href="#">이용자보호 비전</a>
+          <a href="#">고객센터</a>
+        </div>
+      </div>
+      <div class="footer-desc">
+        <p><strong>(주)호박마켓 사업자 정보</strong> | 대표: 호박마켓팀 | 사업자등록번호: 123-45-67890 | 통신판매업신고: 2026-충남아산-0001호</p>
+        <p>주소: 충청남도 아산시 온양읍 화정동 100 호박타워 3층 | 이메일: support@hobakmarket.kr | 고객지원: 1588-0000 (09:00 ~ 18:00 주말/공휴일 휴무)</p>
+        <p class="copyright">© 2026 Hobak Market. All rights reserved. 따뜻한 이웃과의 연결을 만듭니다.</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- 스크립트 연결 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="shared/data.js"></script>
+  <script src="shared/antigravity.js"></script>
+  <script src="list.js"></script>
+</body>
+</html>

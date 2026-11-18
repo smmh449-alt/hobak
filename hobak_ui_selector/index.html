@@ -1,0 +1,327 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>호박마켓 - UI 테마 선택 시스템</title>
+  <link rel="stylesheet" href="shared/common.css">
+  <style>
+    body {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px 100px;
+      background-color: var(--bg-color);
+      overflow-x: hidden;
+    }
+
+    .theme-portal-header {
+      text-align: center;
+      max-width: 640px;
+      margin-bottom: 36px;
+    }
+
+    .portal-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: linear-gradient(135deg, var(--sb-green), var(--sb-red));
+      color: #fff;
+      font-size: 12px;
+      font-weight: 800;
+      padding: 5px 14px;
+      border-radius: var(--radius-full);
+      box-shadow: 0 4px 12px rgba(0, 98, 65, 0.25);
+      margin-bottom: 14px;
+      letter-spacing: 0.8px;
+    }
+
+    .portal-title {
+      font-size: 32px;
+      font-weight: 900;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      letter-spacing: -0.5px;
+    }
+
+    .portal-desc {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.6;
+    }
+
+    /* 3대 UI 테마 카드 그리드 */
+    .theme-cards-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      max-width: 1040px;
+      width: 100%;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 860px) {
+      .theme-cards-grid {
+        grid-template-columns: 1fr;
+        max-width: 440px;
+      }
+    }
+
+    .theme-card {
+      background: var(--card-bg);
+      backdrop-filter: var(--card-blur);
+      -webkit-backdrop-filter: var(--card-blur);
+      border: var(--card-border);
+      border-radius: var(--radius-lg);
+      padding: 28px 24px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      box-shadow: var(--shadow-card);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.35s var(--ease-smooth);
+    }
+
+    .theme-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-hover);
+    }
+
+    .theme-card.is-selected {
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px var(--primary-subtle), var(--shadow-hover);
+    }
+
+    .theme-card-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 16px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.12);
+      border: 2px solid #fff;
+    }
+
+    .theme-card-title {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 8px;
+    }
+
+    .theme-card-desc {
+      font-size: 13.5px;
+      color: var(--text-sub);
+      line-height: 1.5;
+      margin-bottom: 20px;
+      flex: 1;
+    }
+
+    .theme-palette-preview {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 20px;
+    }
+
+    .color-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.15);
+      border: 1.5px solid #fff;
+    }
+
+    .btn-select-theme {
+      width: 100%;
+      padding: 10px 16px;
+      border-radius: var(--radius-full);
+      font-size: 13.5px;
+      font-weight: 700;
+      color: #fff;
+      background: var(--primary);
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+      transition: all 0.25s;
+    }
+
+    .btn-select-theme:hover {
+      background: var(--primary-hover);
+      transform: scale(1.02);
+    }
+
+    /* 포털 액션 바로가기 버튼 */
+    .portal-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-portal-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      border-radius: var(--radius-full);
+      font-size: 15px;
+      font-weight: 800;
+      text-decoration: none;
+      transition: all 0.3s var(--ease-smooth);
+    }
+
+    .btn-action-primary {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      color: #fff;
+      box-shadow: 0 8px 24px rgba(0, 98, 65, 0.3);
+    }
+
+    .btn-action-primary:hover {
+      transform: translateY(-3px) scale(1.03);
+      box-shadow: 0 12px 32px rgba(0, 98, 65, 0.45);
+    }
+
+    .btn-action-secondary {
+      background: rgba(255, 255, 255, 0.85);
+      backdrop-filter: blur(8px);
+      color: var(--text-main);
+      border: 1px solid var(--border-color);
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+    }
+
+    .btn-action-secondary:hover {
+      background: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 브리핑 배너 -->
+  <header class="theme-portal-header">
+    <div class="portal-badge">✨ SICKN33 / AGENTIC-AWESOME-SKILLS DESIGN SYSTEM</div>
+    <h1 class="portal-title">호박마켓 UI 테마 선택</h1>
+    <p class="portal-desc">
+      원하시는 UI 스타일을 클릭하시면 전체 서비스(목록, 상세, 글쓰기)가 즉시 선택한 테마로 반응합니다.<br>
+      화면 우측 하단의 <strong>[UI 모드 독]</strong>에서도 언제든지 실시간으로 자유롭게 변경하실 수 있습니다.
+    </p>
+  </header>
+
+  <!-- 3대 UI 테마 카드 그리드 -->
+  <main class="theme-cards-grid">
+    
+    <!-- 1. 호박 클래식 테마 -->
+    <article class="theme-card" data-pick="classic" onclick="selectThemeFromCard('classic')">
+      <div class="theme-card-icon" style="background: linear-gradient(135deg, #FF6F0F, #FFA94D);">
+        <span>🥕</span>
+      </div>
+      <h2 class="theme-card-title">호박 클래식</h2>
+      <p class="theme-card-desc">
+        따뜻하고 친숙한 당근/호박 주황색 테마.<br>
+        미니멀하고 부드러운 카드와 편안한 가독성의 정통 중고거래 UI입니다.
+      </p>
+      <div class="theme-palette-preview">
+        <span class="color-dot" style="background: #FF6F0F;" title="호박 오렌지"></span>
+        <span class="color-dot" style="background: #FFF2E8;" title="연주황 틴트"></span>
+        <span class="color-dot" style="background: #212529;" title="다크 차콜"></span>
+        <span class="color-dot" style="background: #F8F9FA;" title="소프트 화이트"></span>
+      </div>
+      <button type="button" class="btn-select-theme" style="background: #FF6F0F;">호박 클래식 적용하기</button>
+    </article>
+
+    <!-- 2. 스타벅스 홀리데이 에디션 -->
+    <article class="theme-card" data-pick="starbucks" onclick="selectThemeFromCard('starbucks')">
+      <div class="theme-card-icon" style="background: linear-gradient(135deg, #006241, #1E3932);">
+        <span>☕</span>
+      </div>
+      <h2 class="theme-card-title">스타벅스 홀리데이</h2>
+      <p class="theme-card-desc">
+        스타벅스 딥 그린과 홀리데이 컵 레드의 조화.<br>
+        사이렌 엠블럼 감성의 호박 로고와 고급스러운 포레스트 그린 테마입니다.
+      </p>
+      <div class="theme-palette-preview">
+        <span class="color-dot" style="background: #006241;" title="스타벅스 딥 그린"></span>
+        <span class="color-dot" style="background: #1E3932;" title="사이렌 포레스트"></span>
+        <span class="color-dot" style="background: #C8102E;" title="홀리데이 컵 레드"></span>
+        <span class="color-dot" style="background: #FAF9F6;" title="웜 크림"></span>
+      </div>
+      <button type="button" class="btn-select-theme" style="background: #006241;">스타벅스 테마 적용하기</button>
+    </article>
+
+    <!-- 3. Antigravity 3D Spatial Glassmorphism -->
+    <article class="theme-card" data-pick="antigravity" onclick="selectThemeFromCard('antigravity')">
+      <div class="theme-card-icon" style="background: linear-gradient(135deg, #006241, #C8102E);">
+        <span>🌌</span>
+      </div>
+      <h2 class="theme-card-title">Antigravity 3D Spatial</h2>
+      <p class="theme-card-desc">
+        sickn33의 antigravity-design-expert 규격.<br>
+        무중력(Weightlessness), 공간 깊이감(1200px 3D 틸트), 크리스탈 글래스모피즘 & 3D 아이소메트릭 뷰를 지원합니다.
+      </p>
+      <div class="theme-palette-preview">
+        <span class="color-dot" style="background: rgba(255,255,255,0.85);" title="글래스모피즘 크리스탈"></span>
+        <span class="color-dot" style="background: #006241;" title="네온 딥 그린"></span>
+        <span class="color-dot" style="background: #C8102E;" title="오로라 레드"></span>
+        <span class="color-dot" style="background: #D4AF37;" title="샴페인 골드"></span>
+      </div>
+      <button type="button" class="btn-select-theme" style="background: linear-gradient(135deg, #006241, #1E3932);">Antigravity 3D 적용하기</button>
+    </article>
+
+  </main>
+
+  <!-- 선택 후 페이지 바로가기 액션 바 -->
+  <footer class="portal-actions">
+    <a href="list.html" class="btn-portal-action btn-action-primary">
+      <span>🛍️ 선택한 UI로 상품 목록 입장하기</span>
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="9 18 15 12 9 6"></polyline>
+      </svg>
+    </a>
+    <a href="detail.html?id=1" class="btn-portal-action btn-action-secondary">
+      <span>🧥 상품 상세 화면 (야상 자켓)</span>
+    </a>
+    <a href="write.html" class="btn-portal-action btn-action-secondary">
+      <span>✍️ 내 물건 팔기 (글쓰기)</span>
+    </a>
+  </footer>
+
+  <!-- 공통 스크립트 연결 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="shared/data.js"></script>
+  <script src="shared/antigravity-expert.js"></script>
+  <script src="shared/theme-switcher.js"></script>
+  <script>
+    function selectThemeFromCard(themeName) {
+      if (window.HobakTheme) {
+        window.HobakTheme.applyTheme(themeName);
+      }
+      updateCardHighlight(themeName);
+    }
+
+    function updateCardHighlight(themeName) {
+      document.querySelectorAll('.theme-card').forEach(card => {
+        if (card.getAttribute('data-pick') === themeName) {
+          card.classList.add('is-selected');
+        } else {
+          card.classList.remove('is-selected');
+        }
+      });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      const current = (window.HobakTheme && window.HobakTheme.getSavedTheme()) || 'starbucks';
+      updateCardHighlight(current);
+    });
+  </script>
+</body>
+</html>

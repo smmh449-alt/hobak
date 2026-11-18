@@ -1,0 +1,311 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내 물건 팔기 - 호박마켓</title>
+  <link rel="stylesheet" href="./shared/common.css">
+  <link rel="stylesheet" href="./write.css">
+</head>
+<body>
+  <!-- 상단 네비게이션 헤더 -->
+  <header class="write-nav-header">
+    <div class="write-header-inner">
+      <button type="button" class="btn-icon" id="btnBack" aria-label="뒤로가기">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="19" y1="12" x2="5" y2="12"></line>
+          <polyline points="12 19 5 12 12 5"></polyline>
+        </svg>
+      </button>
+      <h1 class="write-page-title" style="display: flex; align-items: center; gap: 8px;">
+        <span class="logo-badge" style="width: 26px; height: 26px; outline: none; border: 1.5px solid #fff;">
+          <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="48" fill="#006241"/>
+            <circle cx="50" cy="50" r="43" stroke="#ffffff" stroke-width="2"/>
+            <path d="M50 14L52 18H56L53 21L54 25L50 22.5L46 25L47 21L44 18H48L50 14Z" fill="#ffffff"/>
+            <path d="M50 27C41 27 33 34 33 46C33 58 41 66 50 67C59 66 67 58 67 46C67 34 59 27 50 27Z" fill="#ffffff"/>
+          </svg>
+        </span>
+        <span>내 물건 팔기</span>
+      </h1>
+      <button type="button" class="btn-header-submit" id="btnHeaderSubmit">완료</button>
+    </div>
+  </header>
+
+  <!-- 메인 글쓰기 폼 컨테이너 -->
+  <main class="write-main-layout">
+    <div class="write-card-box">
+      <!-- 폼 상단 브리핑 배너 -->
+      <div class="write-banner">
+        <div class="banner-badge">★ HOLIDAY EDITION</div>
+        <h2 class="banner-title">호박마켓 이웃에게 물건을 소개해보세요!</h2>
+        <p class="banner-subtitle">스타벅스 홀리데이처럼 따뜻한 온기가 가득한 동네 중고거래를 시작해요.</p>
+      </div>
+
+      <form id="writeForm" novalidate autocomplete="off">
+        
+        <!-- 1. 사진 첨부 섹션 -->
+        <section class="write-section photos-section">
+          <div class="section-label-group">
+            <label class="section-label">
+              상품 사진 <span class="required-star">*</span>
+              <span class="label-guide">(최대 10장)</span>
+            </label>
+            <span class="photo-counter-badge" id="photoCountBadge">0/10</span>
+          </div>
+
+          <!-- 사진 추가 및 썸네일 그리드 -->
+          <div class="photo-upload-container">
+            <!-- 사진 업로드 버튼 -->
+            <label for="photoFileInput" class="photo-upload-trigger" id="photoUploadTrigger">
+              <svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="#868E96" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                <circle cx="12" cy="13" r="4"></circle>
+              </svg>
+              <span class="trigger-text">사진 추가</span>
+              <span class="trigger-count" id="triggerCount">0/10</span>
+            </label>
+            <input type="file" id="photoFileInput" accept="image/*" multiple style="display: none;">
+
+            <!-- 미리보기 썸네일 리스트 -->
+            <div class="photo-preview-track" id="photoPreviewTrack">
+              <!-- JS 동적 생성 -->
+            </div>
+          </div>
+
+          <!-- 빠른 샘플 이미지 선택 칩 (간편 테스트 지원) -->
+          <div class="sample-photo-area">
+            <span class="sample-label">💡 원클릭 샘플 사진 추가:</span>
+            <div class="sample-chips" id="sampleChips">
+              <button type="button" class="sample-chip" data-sample="jacket">🧥 야상 자켓</button>
+              <button type="button" class="sample-chip" data-sample="headphone">🎧 무선 헤드폰</button>
+              <button type="button" class="sample-chip" data-sample="table">🪵 캠핑 테이블</button>
+              <button type="button" class="sample-chip" data-sample="cushion">🎃 호박 쿠션</button>
+              <button type="button" class="sample-chip" data-sample="shoes">👟 나이키 에어포스</button>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. 제목 입력 섹션 -->
+        <section class="write-section">
+          <div class="section-label-group">
+            <label for="titleInput" class="section-label">
+              글 제목 <span class="required-star">*</span>
+            </label>
+            <span class="char-count" id="titleCharCount">0/50</span>
+          </div>
+          <div class="input-wrapper">
+            <input 
+              type="text" 
+              id="titleInput" 
+              name="title" 
+              class="form-control" 
+              placeholder="글 제목을 입력해주세요 (예: 무이음 야상 자켓 상태 극상)" 
+              maxlength="50" 
+              required
+            >
+          </div>
+          <div class="field-error" id="titleError">제목을 입력해주세요.</div>
+        </section>
+
+        <!-- 3. 카테고리 선택 섹션 -->
+        <section class="write-section">
+          <div class="section-label-group">
+            <label class="section-label">
+              카테고리 <span class="required-star">*</span>
+            </label>
+          </div>
+          
+          <!-- 칩 기반 카테고리 선택 -->
+          <div class="category-chip-group" id="categoryChipGroup">
+            <button type="button" class="cat-chip" data-category="여성의류">여성의류</button>
+            <button type="button" class="cat-chip" data-category="남성패션/잡화">남성패션/잡화</button>
+            <button type="button" class="cat-chip" data-category="디지털기기">디지털기기</button>
+            <button type="button" class="cat-chip" data-category="생활가전">생활가전</button>
+            <button type="button" class="cat-chip" data-category="가구/인테리어">가구/인테리어</button>
+            <button type="button" class="cat-chip" data-category="스포츠/레저">스포츠/레저</button>
+            <button type="button" class="cat-chip" data-category="도서/음반">도서/음반</button>
+            <button type="button" class="cat-chip" data-category="기타 중고물품">기타 중고물품</button>
+          </div>
+          <input type="hidden" id="selectedCategory" name="category" value="">
+          <div class="field-error" id="categoryError">카테고리를 선택해주세요.</div>
+        </section>
+
+        <!-- 4. 거래 방식 및 가격 설정 -->
+        <section class="write-section">
+          <div class="section-label-group">
+            <label for="priceInput" class="section-label">
+              판매 가격 <span class="required-star">*</span>
+            </label>
+          </div>
+
+          <div class="price-input-container">
+            <div class="currency-symbol">₩</div>
+            <input 
+              type="text" 
+              id="priceInput" 
+              name="price" 
+              class="form-control price-control" 
+              placeholder="가격을 입력해주세요 (숫자만)" 
+              inputmode="numeric"
+            >
+            <div class="price-formatted-badge" id="priceFormattedPreview">0원</div>
+          </div>
+
+          <!-- 나눔 / 제안 옵션 체크박스 -->
+          <div class="price-options-row">
+            <label class="custom-checkbox">
+              <input type="checkbox" id="isFreeCheck" name="isFree">
+              <span class="checkmark"></span>
+              <span class="checkbox-label">나눔🧡 <small class="text-sub">(체크 시 무료나눔 0원)</small></span>
+            </label>
+
+            <label class="custom-checkbox">
+              <input type="checkbox" id="allowSuggestCheck" name="allowSuggest" checked>
+              <span class="checkmark"></span>
+              <span class="checkbox-label">가격 제안 받기</span>
+            </label>
+          </div>
+          <div class="field-error" id="priceError">가격을 올바르게 입력해주세요.</div>
+        </section>
+
+        <!-- 5. 거래 희망 장소 (동네) -->
+        <section class="write-section">
+          <div class="section-label-group">
+            <label for="locationInput" class="section-label">
+              거래 희망 장소 <span class="required-star">*</span>
+            </label>
+          </div>
+          <div class="input-wrapper location-input-wrap">
+            <svg class="location-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#FF6F0F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+              <circle cx="12" cy="10" r="3"></circle>
+            </svg>
+            <input 
+              type="text" 
+              id="locationInput" 
+              name="location" 
+              class="form-control with-icon" 
+              placeholder="거래 희망 장소 (예: 충남 아산시 온양읍 화정동, 역삼역 3번 출구)" 
+              value="충남 아산시 온양읍 화정동"
+              required
+            >
+          </div>
+
+          <!-- 빠른 추천 장소 칩 -->
+          <div class="quick-locations">
+            <span class="quick-loc-label">추천 장소:</span>
+            <button type="button" class="loc-chip">충남 아산시 온양읍 화정동</button>
+            <button type="button" class="loc-chip">서울 강남구 역삼동</button>
+            <button type="button" class="loc-chip">서울 마포구 연남동</button>
+            <button type="button" class="loc-chip">역삼역 3번 출구 앞</button>
+          </div>
+          <div class="field-error" id="locationError">거래 희망 장소를 입력해주세요.</div>
+        </section>
+
+        <!-- 6. 자세한 설명 작성 -->
+        <section class="write-section">
+          <div class="section-label-group">
+            <label for="descInput" class="section-label">
+              자세한 설명 <span class="required-star">*</span>
+            </label>
+            <span class="char-count" id="descCharCount">0/1000</span>
+          </div>
+
+          <div class="textarea-wrapper">
+            <textarea 
+              id="descInput" 
+              name="description" 
+              class="form-control text-area-control" 
+              rows="8" 
+              maxlength="1000"
+              placeholder="올릴 게시글 내용을 작성해주세요.&#10;(가품 및 판매금지품목은 게시가 제한될 수 있어요.)&#10;&#10;- 신뢰할 수 있는 거래를 위해 자세히 적어주세요.&#10;- 구매 시기, 하자 유무, 실사용감, 보관 상태 등" 
+              required
+            ></textarea>
+          </div>
+          <div class="field-error" id="descError">내용을 5자 이상 작성해주세요.</div>
+        </section>
+
+        <!-- 7. 판매자 정보 설정 (기본값 제공 및 커스텀) -->
+        <section class="write-section seller-config-section">
+          <div class="section-label-group">
+            <label class="section-label">판매자 프로필</label>
+            <span class="label-guide">구매자에게 표시되는 내 프로필 정보입니다</span>
+          </div>
+
+          <div class="seller-card">
+            <div class="seller-avatar-wrap">
+              <img id="sellerAvatarImg" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80" alt="판매자 프로필" class="seller-avatar">
+              <span class="avatar-badge">🎃</span>
+            </div>
+            <div class="seller-fields">
+              <div class="seller-field-row">
+                <label for="sellerNickname">닉네임</label>
+                <input type="text" id="sellerNickname" class="form-control sm-control" value="2222" placeholder="닉네임">
+              </div>
+              <div class="seller-meta-row">
+                <div class="seller-badge-temp">
+                  <span class="temp-text">매너온도 <strong>36.8°C</strong></span>
+                  <div class="temp-bar-mini"><div class="temp-bar-fill" style="width: 50%;"></div></div>
+                </div>
+                <div class="seller-response-rate">응답률 100%</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 8. 하단 등록 액션 버튼 -->
+        <div class="form-submit-area">
+          <button type="submit" class="btn-submit-large" id="btnSubmitMain">
+            <span>호박마켓에 등록하기</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </button>
+          <button type="button" class="btn-cancel" id="btnCancel">작성 취소</button>
+        </div>
+
+      </form>
+    </div>
+  </main>
+
+  <!-- 토스트 알림 컴포넌트 -->
+  <div id="hobakToast" class="hobak-toast"></div>
+
+  <!-- 푸터 -->
+  <footer class="hobak-footer">
+    <div class="footer-container">
+      <div class="footer-top">
+        <div class="footer-logo">
+          <div class="logo-badge" style="width: 32px; height: 32px;">
+            <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <circle cx="50" cy="50" r="48" fill="#006241"/>
+              <circle cx="50" cy="50" r="43" stroke="#ffffff" stroke-width="2"/>
+              <path d="M50 14L52 18H56L53 21L54 25L50 22.5L46 25L47 21L44 18H48L50 14Z" fill="#ffffff"/>
+              <path d="M50 27C41 27 33 34 33 46C33 58 41 66 50 67C59 66 67 58 67 46C67 34 59 27 50 27Z" fill="#ffffff"/>
+              <path d="M26 71C35 67 44 70 50 72C56 70 65 67 74 71C69 76 61 76 50 81C39 76 31 76 26 71Z" fill="#C8102E"/>
+            </svg>
+          </div>
+          <span class="footer-logo-title" style="margin-left: 8px;">호박마켓 <span style="font-size: 11px; color: var(--sb-red); font-weight: 700;">★ HOLIDAY</span></span>
+        </div>
+        <div class="footer-links">
+          <a href="list.html">중고거래</a>
+          <a href="#">이용약관</a>
+          <a href="#">개인정보처리방침</a>
+          <a href="#">고객센터</a>
+        </div>
+      </div>
+      <p class="footer-desc">
+        호박마켓은 이웃 간의 따뜻한 중고거래와 지역 소통을 지향합니다.<br>
+        사업자등록번호: 123-45-67890 | 대표자: 호박이 | 고객문의: cs@hobakmarket.kr
+      </p>
+    </div>
+  </footer>
+
+  <!-- 스크립트 연결 -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="./shared/data.js"></script>
+  <script src="./shared/antigravity.js"></script>
+  <script src="./write.js"></script>
+</body>
+</html>

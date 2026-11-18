@@ -1,0 +1,635 @@
+/* 호박마켓 스타벅스 에디션 디자인 시스템 (shared/common.css) */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css');
+
+:root {
+  /* 스타벅스 시그니처 컬러 팔레트 (Starbucks Classic & Holiday Cup Colors) */
+  --sb-green: #006241;          /* 스타벅스 클래식 딥 그린 */
+  --sb-green-dark: #1E3932;     /* 스타벅스 사이렌 다크 포레스트 그린 */
+  --sb-green-hover: #004d33;
+  --sb-green-light: #EAF4F0;    /* 연한 그린 틴트 */
+  --sb-green-subtle: #D2E9DF;
+  
+  --sb-red: #C8102E;            /* 스타벅스 홀리데이 컵 레드 */
+  --sb-red-dark: #A60D26;
+  --sb-red-hover: #B00E29;
+  --sb-red-light: #FDECEF;      /* 연한 레드 틴트 */
+  
+  --sb-cream: #FAF9F6;          /* 스타벅스 컵 뚜껑 웜 크림 */
+  --sb-gold: #CBA258;           /* 스타벅스 서브 골드 엑센트 */
+  
+  /* 공통 매핑 토큰 */
+  --primary: var(--sb-green);
+  --primary-hover: var(--sb-green-hover);
+  --primary-dark: var(--sb-green-dark);
+  --primary-light: var(--sb-green-light);
+  --primary-subtle: var(--sb-green-subtle);
+  
+  --accent: var(--sb-red);
+  --accent-hover: var(--sb-red-hover);
+  --accent-light: var(--sb-red-light);
+
+  --bg-color: #F7F8F6;
+  --card-bg: #FFFFFF;
+  --text-main: #1E2322;
+  --text-sub: #5F6B66;
+  --text-muted: #95A19B;
+  --border-color: #E2E6E3;
+  --border-light: #EEF2EF;
+  
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+  --shadow-sm: 0 1px 3px rgba(30, 57, 50, 0.06);
+  --shadow-md: 0 4px 12px rgba(30, 57, 50, 0.08);
+  --shadow-lg: 0 8px 24px rgba(30, 57, 50, 0.12);
+  --header-height: 64px;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+  color: var(--text-main);
+  background-color: var(--bg-color);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+input, textarea, select {
+  font-family: inherit;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input:focus, textarea:focus, select:focus {
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(0, 98, 65, 0.15);
+}
+
+/* Header & Navigation Bar (스타벅스 시그니처 스타일) */
+.hobak-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: #ffffff;
+  border-bottom: 2px solid var(--sb-green-light);
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(30, 57, 50, 0.04);
+}
+
+.header-container {
+  max-width: 1120px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+/* 스타벅스 엠블럼 스타일 로고 */
+.logo-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--sb-green-dark);
+  letter-spacing: -0.5px;
+}
+
+.logo-badge {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  background-color: var(--sb-green);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 6px rgba(0, 98, 65, 0.25);
+  position: relative;
+  flex-shrink: 0;
+  border: 2px solid #ffffff;
+  outline: 1.5px solid var(--sb-green);
+}
+
+.logo-badge svg {
+  width: 24px;
+  height: 24px;
+}
+
+.logo-title-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.logo-text-ko {
+  font-size: 19px;
+  font-weight: 900;
+  color: var(--sb-green-dark);
+  line-height: 1.1;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.logo-ribbon-tag {
+  font-size: 10px;
+  background-color: var(--sb-red);
+  color: #fff;
+  padding: 1px 5px;
+  border-radius: 3px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.logo-text-en {
+  font-size: 9px;
+  font-weight: 700;
+  color: var(--sb-green);
+  letter-spacing: 1px;
+}
+
+.header-nav {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.nav-link {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-main);
+  transition: color 0.2s;
+  padding: 6px 0;
+  position: relative;
+}
+
+.nav-link:hover, .nav-link.active {
+  color: var(--sb-green);
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background-color: var(--sb-green);
+  border-radius: 2px;
+}
+
+/* 글쓰기 버튼 - 스타벅스 홀리데이 레드 / 그린 액센트 */
+.btn-write-header {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, var(--sb-green) 0%, var(--sb-green-dark) 100%);
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: var(--radius-full);
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 0 3px 8px rgba(0, 98, 65, 0.2);
+  transition: all 0.2s ease;
+}
+
+.btn-write-header:hover {
+  background: linear-gradient(135deg, var(--sb-green-hover) 0%, #132722 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 98, 65, 0.3);
+}
+
+.btn-write-header:active {
+  transform: scale(0.98);
+}
+
+/* Floating Action Button (Mobile write) */
+.fab-write {
+  display: none;
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  z-index: 90;
+  background: linear-gradient(135deg, var(--sb-green) 0%, var(--sb-green-dark) 100%);
+  color: #fff;
+  padding: 13px 22px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  font-size: 15px;
+  box-shadow: 0 8px 24px rgba(0, 98, 65, 0.35);
+  align-items: center;
+  gap: 8px;
+  transition: transform 0.2s, background-color 0.2s;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.fab-write:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(0, 98, 65, 0.45);
+}
+
+@media (max-width: 768px) {
+  .fab-write {
+    display: inline-flex;
+  }
+}
+
+/* Footer - 스타벅스 딥 포레스트 그린 테마 */
+.hobak-footer {
+  background-color: var(--sb-green-dark);
+  border-top: 1px solid rgba(255,255,255,0.08);
+  padding: 48px 20px;
+  margin-top: 60px;
+  color: #BAC7C2;
+  font-size: 13px;
+}
+
+.footer-container {
+  max-width: 1120px;
+  margin: 0 auto;
+}
+
+.footer-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  padding-bottom: 24px;
+  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.footer-logo-title {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.3px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  font-weight: 600;
+  color: #DDE5E2;
+  flex-wrap: wrap;
+}
+
+.footer-links a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.footer-desc {
+  line-height: 1.8;
+  color: #9EAEA8;
+}
+
+.footer-desc strong {
+  color: #E2ECE8;
+}
+
+.footer-desc .copyright {
+  margin-top: 14px;
+  color: #7E9089;
+  font-size: 12px;
+}
+
+/* ============================================================ */
+/* Header Auth & Login State Styles                             */
+/* ============================================================ */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-auth-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.btn-header-login {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--sb-green-light);
+  color: var(--sb-green-dark);
+  border: 1.5px solid var(--sb-green);
+  border-radius: var(--radius-full);
+  padding: 7px 16px;
+  font-size: 13.5px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+}
+
+.btn-header-login:hover {
+  background-color: var(--sb-green);
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(0, 98, 65, 0.25);
+  transform: translateY(-1px);
+}
+
+.user-logged-box {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.user-name-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background-color: var(--sb-green-light);
+  color: var(--sb-green-dark);
+  padding: 6px 14px;
+  border-radius: var(--radius-full);
+  font-size: 13.5px;
+  font-weight: 700;
+  border: 1px solid var(--sb-green-subtle);
+}
+
+.user-name-tag i {
+  color: var(--sb-green);
+  font-size: 15px;
+}
+
+.btn-header-logout {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: #ffffff;
+  color: var(--text-sub);
+  border: 1px solid var(--border-color);
+  padding: 6px 13px;
+  border-radius: var(--radius-full);
+  font-size: 13px;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.btn-header-logout:hover {
+  color: var(--sb-red);
+  background-color: var(--sb-red-light);
+  border-color: var(--sb-red);
+}
+
+/* ============================================================ */
+/* Auth Modal (로그인 / 회원가입) Styles                         */
+/* ============================================================ */
+.auth-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(15, 30, 24, 0.65);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: authFadeIn 0.2s ease;
+}
+
+@keyframes authFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.auth-modal-card {
+  background: #ffffff;
+  width: 100%;
+  max-width: 420px;
+  border-radius: 20px;
+  box-shadow: 0 20px 48px rgba(15, 30, 24, 0.25);
+  overflow: hidden;
+  animation: authPopUp 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 1px solid var(--border-light);
+}
+
+@keyframes authPopUp {
+  from { opacity: 0; transform: scale(0.92) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.auth-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 24px 16px;
+  background: #ffffff;
+}
+
+.auth-header-logo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.auth-logo-badge {
+  font-size: 24px;
+}
+
+.auth-modal-title {
+  font-size: 19px;
+  font-weight: 800;
+  color: var(--sb-green-dark);
+}
+
+.btn-auth-close {
+  font-size: 26px;
+  color: var(--text-muted);
+  line-height: 1;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.btn-auth-close:hover {
+  background-color: var(--bg-color);
+  color: var(--text-main);
+}
+
+.auth-tabs {
+  display: flex;
+  border-bottom: 2px solid var(--border-light);
+  padding: 0 24px;
+  gap: 8px;
+}
+
+.auth-tab {
+  flex: 1;
+  padding: 12px 0;
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text-muted);
+  position: relative;
+  text-align: center;
+  transition: color 0.2s;
+  background: none;
+  cursor: pointer;
+}
+
+.auth-tab.active {
+  color: var(--sb-green);
+  font-weight: 800;
+}
+
+.auth-tab.active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 2.5px;
+  background-color: var(--sb-green);
+  border-radius: 2px;
+}
+
+.auth-modal-body {
+  padding: 20px 24px 28px;
+}
+
+.auth-guide-banner {
+  background-color: var(--sb-green-light);
+  border: 1px solid var(--sb-green-subtle);
+  color: var(--sb-green-dark);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.auth-guide-banner i {
+  color: var(--sb-green);
+  font-size: 15px;
+}
+
+.auth-input-group {
+  margin-bottom: 16px;
+}
+
+.auth-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-main);
+  margin-bottom: 6px;
+}
+
+.auth-label .required-star {
+  color: var(--sb-red);
+}
+
+.auth-input-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.auth-icon {
+  position: absolute;
+  left: 14px;
+  color: var(--text-muted);
+  font-size: 15px;
+}
+
+.auth-input-wrap input {
+  width: 100%;
+  height: 44px;
+  padding: 0 14px 0 40px;
+  font-size: 14px;
+  border: 1.5px solid var(--border-color);
+  border-radius: var(--radius-md);
+  background-color: #fafbfa;
+}
+
+.auth-input-wrap input:focus {
+  background-color: #ffffff;
+  border-color: var(--sb-green);
+  box-shadow: 0 0 0 3px rgba(0, 98, 65, 0.12);
+}
+
+.auth-error-msg {
+  background-color: var(--sb-red-light);
+  border: 1px solid #f9c7cf;
+  color: var(--sb-red-dark);
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.btn-auth-submit {
+  width: 100%;
+  height: 48px;
+  background: linear-gradient(135deg, var(--sb-green) 0%, var(--sb-green-dark) 100%);
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+  border-radius: var(--radius-md);
+  margin-top: 8px;
+  box-shadow: 0 4px 14px rgba(0, 98, 65, 0.25);
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.btn-auth-submit:hover {
+  background: linear-gradient(135deg, var(--sb-green-hover) 0%, #132722 100%);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 18px rgba(0, 98, 65, 0.35);
+}
+
+.btn-auth-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* 카드 내 작성자 닉네임 */
+.card-meta .card-author {
+  color: var(--sb-green-dark);
+  font-weight: 700;
+}

@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>호박마켓 - Antigravity Design Edition</title>
+  <link rel="stylesheet" href="shared/common.css">
+  <style>
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      background-color: var(--bg-color);
+      overflow: hidden;
+    }
+
+    .hero-glass-portal {
+      max-width: 580px;
+      width: 90%;
+      background: var(--glass-bg);
+      backdrop-filter: var(--glass-blur-deep);
+      -webkit-backdrop-filter: var(--glass-blur-deep);
+      border: 1.5px solid var(--glass-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-hover-3d);
+      padding: 48px 36px;
+      text-align: center;
+      position: relative;
+      z-index: 10;
+      transform-style: preserve-3d;
+      transition: transform 0.4s var(--ease-antigravity);
+    }
+
+    .hero-badge-wrap {
+      width: 80px;
+      height: 80px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--sb-green) 0%, var(--sb-green-dark) 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 28px rgba(0, 98, 65, 0.45);
+      border: 3px solid #ffffff;
+      outline: 2px solid var(--sb-green);
+      animation: floatBadge 4s infinite ease-in-out;
+    }
+
+    @keyframes floatBadge {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50% { transform: translateY(-8px) rotate(6deg); }
+    }
+
+    .hero-badge-wrap svg {
+      width: 52px;
+      height: 52px;
+    }
+
+    .hero-tag {
+      display: inline-block;
+      font-size: 11px;
+      font-weight: 800;
+      color: #fff;
+      background: linear-gradient(135deg, var(--sb-red) 0%, var(--sb-red-dark) 100%);
+      padding: 4px 12px;
+      border-radius: var(--radius-full);
+      letter-spacing: 1px;
+      box-shadow: 0 2px 8px rgba(200, 16, 46, 0.3);
+      margin-bottom: 12px;
+    }
+
+    .hero-title {
+      font-size: 28px;
+      font-weight: 900;
+      color: var(--sb-green-dark);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .hero-subtitle {
+      font-size: 15px;
+      color: var(--text-sub);
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .nav-tiles {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-bottom: 24px;
+    }
+
+    .nav-tile-btn {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 16px 10px;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      border-radius: var(--radius-md);
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 4px 12px rgba(30, 57, 50, 0.06);
+      transition: all 0.3s var(--ease-antigravity);
+    }
+
+    .nav-tile-btn:hover {
+      background: #ffffff;
+      transform: translateY(-5px) scale(1.04);
+      box-shadow: 0 10px 24px rgba(0, 98, 65, 0.2);
+      color: var(--sb-green);
+      border-color: var(--sb-green-subtle);
+    }
+
+    .nav-tile-icon {
+      font-size: 22px;
+    }
+
+    .auto-redirect-info {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    .auto-redirect-info a {
+      color: var(--sb-green);
+      font-weight: 700;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 메인 3D 글래스 포털 카드 -->
+  <div class="hero-glass-portal product-card">
+    <div class="hero-badge-wrap">
+      <svg viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="50" cy="50" r="48" fill="#006241"/>
+        <circle cx="50" cy="50" r="43" stroke="#ffffff" stroke-width="2"/>
+        <circle cx="50" cy="50" r="39" stroke="#ffffff" stroke-width="1" stroke-dasharray="2 2" opacity="0.6"/>
+        <path d="M50 14L52 18H56L53 21L54 25L50 22.5L46 25L47 21L44 18H48L50 14Z" fill="#ffffff"/>
+        <path d="M36 18L37.5 21.5H41L38.5 24L39.5 27.5L36 25.5L32.5 27.5L33.5 24L31 21.5H34.5L36 18Z" fill="#ffffff"/>
+        <path d="M64 18L65.5 21.5H69L66.5 24L67.5 27.5L64 25.5L60.5 27.5L61.5 24L59 21.5H62.5L64 18Z" fill="#ffffff"/>
+        <path d="M49 26C49 23 53 22 55 20C54 24 51 26 49 26Z" fill="#ffffff"/>
+        <path d="M50 27C41 27 33 34 33 46C33 58 41 66 50 67C59 66 67 58 67 46C67 34 59 27 50 27Z" fill="#ffffff"/>
+        <path d="M50 28C45 36 45 56 50 65C47 56 47 36 50 28Z" fill="#006241"/>
+        <path d="M43 31C37 39 37 54 43 62C39 54 39 39 43 31Z" fill="#006241"/>
+        <path d="M57 31C63 39 63 54 57 62C61 54 61 39 57 31Z" fill="#006241"/>
+        <path d="M26 71C35 67 44 70 50 72C56 70 65 67 74 71C69 76 61 76 50 81C39 76 31 76 26 71Z" fill="#C8102E" stroke="#ffffff" stroke-width="1.2"/>
+        <circle cx="50" cy="72" r="3" fill="#ffffff"/>
+        <path d="M47 74L43 85L48 83L50 85L52 83L57 85L53 74Z" fill="#C8102E"/>
+      </svg>
+    </div>
+
+    <div class="hero-tag">★ ANTIGRAVITY SPATIAL EDITION</div>
+    <h1 class="hero-title">호박마켓 × 스타벅스</h1>
+    <p class="hero-subtitle">무중력 공간감과 글래스모피즘, 3D 틸트 인터랙션이 더해진<br>새로운 차원의 따뜻한 동네 중고거래</p>
+
+    <!-- 빠른 화면 이동 내비게이션 타일 -->
+    <div class="nav-tiles">
+      <a href="list.html" class="nav-tile-btn">
+        <span class="nav-tile-icon">🛍️</span>
+        <span>상품 목록 보기</span>
+      </a>
+      <a href="detail.html?id=1" class="nav-tile-btn">
+        <span class="nav-tile-icon">🧥</span>
+        <span>상품 상세 보기</span>
+      </a>
+      <a href="write.html" class="nav-tile-btn">
+        <span class="nav-tile-icon">✍️</span>
+        <span>내 물건 팔기</span>
+      </a>
+    </div>
+
+    <p class="auto-redirect-info">
+      <span id="countdown">3</span>초 후 자동으로 목록 페이지로 이동합니다. 
+      <a href="list.html">바로 이동하기</a>
+    </p>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="shared/data.js"></script>
+  <script src="shared/antigravity.js"></script>
+  <script>
+    let seconds = 3;
+    const countdownEl = document.getElementById('countdown');
+    const timer = setInterval(() => {
+      seconds--;
+      if (countdownEl) countdownEl.textContent = seconds;
+      if (seconds <= 0) {
+        clearInterval(timer);
+        window.location.href = 'list.html';
+      }
+    }, 1000);
+
+    // 사용자가 타일이나 링크에 호버하면 카운트다운 정지 (편리한 사용성)
+    document.querySelectorAll('a').forEach(link => {
+      link.addEventListener('mouseenter', () => clearInterval(timer));
+    });
+  </script>
+</body>
+</html>
